@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Libros | Escritor Profesional</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenido a mi Espacio</h1>
+        <p>Descubre, aprende y disfruta de principio a fin</p>
+    </header>
+
+    <nav class="menu-pestanas">
+      <button class="tab-link active" onclick="abrirSeccion(event, 'novelas')">Novelas</button>
+      <button class="tab-link" onclick="abrirSeccion(event, 'ninos')">Libros Infantiles</button>
+      <button class="tab-link" onclick="abrirSeccion(event, 'cursos')">Mis Cursos</button>
+      <button class="tab-link" onclick="abrirSeccion(event, 'sobre-mi')">Sobre mí</button>
+    </nav>
+
+    <div id="novelas" class="contenido-tab" style="display: block;">
+        <div class="titulo-seccion">
+            <h2>Novelas juveniles y Diarios para aprender</h2>
+            <p>Historias apasionantes para lectores apasionados - Diarios de amor, con amor y para el amor</p>
+        </div>
+        <section class="contenedor-libros">
+            <div class="tarjeta-libro">
+                <img src="imagenes/emily-axelrod.png" alt="Portada Libro 1">
+                <h3>La saga Emily: Emily Axelrod</h3>
+                <p>Cuando el amor, el poder y la ciencia chocan, el pasado nunca permanece enterrado.</p>
+                <a href="paginas-venta/novelas/emily-axelrod.html" class="boton-info">Más información</a>
+            </div>
+            <div class="tarjeta-libro">
+                <img src="imagenes/paciente-cero.png" alt="Portada Libro 2">
+                <h3>La saga Emily: El paciente cero</h3>
+                <p>Antes de salvar a la humanidad, alguien tuvo que ser sacrificado.</p>
+                <a href="paginas-venta/novelas/paciente-cero.html" class="boton-info">Más información</a>
+            </div>
+            <div class="tarjeta-libro">
+                <img src="imagenes/valentina-nunez.png" alt="Portada Libro 3">
+                <h3>La vida de Valentina Núñez</h3>
+                <p>Una historia realista sobre crecer, caer, cometer errores… y segundas oportunidades.</p>
+                <a href="paginas-venta/novelas/valentina-nunez.html" class="boton-info">Más información</a>
+            </div>
+			<div class="tarjeta-libro">
+                <img src="imagenes/diario-desamor.png" alt="Portada Libro 3">
+                <h3>Diario de Desamor para aprender del Amor</h3>
+                <p>Porque nadie nos enseñó a amar… pero todos tuvimos que aprender a sobrevivir al desamor.</p>
+                <a href="paginas-venta/novelas/diario-desamor.html" class="boton-info">Más información</a>
+            </div>
+			<div class="tarjeta-libro">
+                <img src="imagenes/diario-pareja.png" alt="Portada Libro 3">
+                <h3>100 desafíos divertidos para hacer en Pareja</h3>
+                <p>Porque el amor no se mantiene solo: se construye, se juega y se elige cada día.</p>
+                <a href="paginas-venta/novelas/diario-pareja.html" class="boton-info">Más información</a>
+            </div>
+        </section>
+    </div>
+
+    <div id="ninos" class="contenido-tab">
+        <div class="titulo-seccion infantil">
+            <h2>Historias y libros de actividades para los más pequeños</h2>
+            <p>Para que los niños descubran, aprendan y se diviertan.</p>
+			<section class="contenedor-libros">
+				<div class="tarjeta-libro">
+					<img src="imagenes/coloring-book.png" alt="Libro de Actividades">
+					<h3>Libro para Colorear Animalitos</h3>
+					<p>Diviértete coloreando más de 70 animalitos bebés.</p>
+					<a href="paginas-venta/ninos/coloring-book.html" class="boton-info" style="background-color: #ff6b6b;">Ver libro</a>
+				</div>
+				<div class="tarjeta-libro">
+					<img src="imagenes/activity-book.png" alt="Libro de Actividades">
+					<h3>Libro de Actividades Variadas</h3>
+					<p>Más de 40 categorías diferentes con distintas actividades divertidas cada una.</p>
+					<a href="paginas-venta/ninos/activity-book.html" class="boton-info" style="background-color: #ff6b6b;">Ver libro</a>
+				</div>
+				<div class="tarjeta-libro">
+					<img src="imagenes/tracing-matching.png" alt="Libro de Actividades">
+					<h3>Libro para Aprender Frases Cotidianas</h3>
+					<p>Decenas de actividades divididas en tres grandes categorías para reforzar varias habilidades.</p>
+					<a href="paginas-venta/ninos/tracing-matching.html" class="boton-info" style="background-color: #ff6b6b;">Ver libro</a>
+				</div>
+				<div class="tarjeta-libro">
+					<img src="imagenes/word-search.png" alt="Libro de Actividades">
+					<h3>Libro para Buscar Palabras</h3>
+					<p>Diviértete buscando las palabras y enriquece tu vocabulario.</p>
+					<a href="paginas-venta/ninos/word-search.html" class="boton-info" style="background-color: #ff6b6b;">Ver libro</a>
+				</div>
+            </section>
+        </div>
+    </div>
+
+    <div id="cursos" class="contenido-tab">
+        <div class="titulo-seccion cursos">
+            <h2>Quiero compartir contigo mis Conocimientos</h2>
+            <p>Aprendamos de forma más divertida y personalizada.</p>
+			<section class="contenedor-libros">
+				<div class="tarjeta-libro">
+					<img src="imagenes/inglés-1.png" alt="Curso de Inglés">
+					<h3>Inglés de Básico a Avanzado</h3>
+					<p>Aprende el idioma que habla el mundo de una forma totalmente diferente.</p>
+					<a href="paginas-venta/cursos/coming-soon.html" class="boton-info" style="background-color: #2980b9;">Descubre cómo</a>
+				</div>
+				<div class="tarjeta-libro">
+					<img src="imagenes/inglés-2.png" alt="Curso de Inglés">
+					<h3>Tutoría Online</h3>
+					<p>Aprende inglés uno a uno o en grupos pequeños.</p>
+					<a href="paginas-venta/cursos/online-tutoring.html" class="boton-info" style="background-color: #2980b9;">Descubre cómo</a>
+				</div>
+				<div class="tarjeta-libro">
+					<img src="imagenes/inglés-3.png" alt="Curso de Inglés">
+					<h3>Tutoría Presencial</h3>
+					<p>El profesor va a tu casa y te enseña de forma más personalizada y a tu ritmo.</p>
+					<a href="paginas-venta/cursos/face-to-face-tutoring.html" class="boton-info" style="background-color: #2980b9;">Descubre cómo</a>
+				</div>
+            </section>
+        </div>
+    </div>
+	
+    <div id="sobre-mi" class="contenido-tab">
+		<div class="titulo-seccion">
+			<h2>¿Quién soy yo?</h2>
+		</div>
+		
+		<div class="contenedor-landing"> 
+			<section class="seccion-bloque">
+				<div class="autor-flex-index">
+					<div class="columna-foto">
+						<img src="imagenes/cesar-ponce.png" alt="César Ponce" class="foto-perfil-grande">
+					</div>
+					<div class="columna-bio">
+						<p class="texto-sinopsis">
+							<strong>Escritor, Educador y Analista de la Conducta.</strong><br><br>
+							Soy un apasionado de las historias que transforman y de los mecanismos que impulsan la mente humana. Como escritor autodidacta, navego entre la literatura infantil y la ficción para adultos, buscando siempre conectar con el lector desde la autenticidad.
+						</p>
+						<p class="texto-sinopsis">
+							Con más de 10 años de experiencia como docente de inglés, he dedicado mi carrera a derribar barreras comunicativas en iniciativas como TCEduca, BlaBlu English y Bincness. Mi formación como Criminólogo-Criminalista me permite entender la conducta humana desde el análisis del cerebro, una perspectiva que hoy llevo al futuro mientras estudio Ingeniería en Inteligencia Artificial.
+						</p>
+						<p class="texto-sinopsis">
+							Cuando no estoy escribiendo, enseñando o colaborando en proyectos como Caap Labs o Parejatube, me encontrarás recorriendo rutas en mi moto, alimentando mi curiosidad por el mundo y por las infinitas posibilidades del aprendizaje constante.
+						</p>
+						
+						<div class="redes-sociales" style="margin-top: 20px;">
+							<a href="https://linktr.ee/cesar_ponce" target="_blank" class="btn-linktree">Conecta conmigo</a>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+    </div>
+
+    <footer class="pie-pagina">
+        <p>&copy; 2026 Cesar Ponce | Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+    function abrirSeccion(evt, nombreSeccion) {
+    var i, contenido, links;
+    contenido = document.getElementsByClassName("contenido-tab");
+    for (i = 0; i < contenido.length; i++) {
+        contenido[i].style.display = "none";
+    }
+    links = document.getElementsByClassName("tab-link");
+    for (i = 0; i < links.length; i++) {
+        links[i].className = links[i].className.replace(" active", "");
+    }
+    document.getElementById(nombreSeccion).style.display = "block";
+    if (evt) {
+        evt.currentTarget.className += " active";
+    } else {
+        // Si no hay evento (carga automática), buscamos el botón manualmente
+        var btn = document.querySelector(`button[onclick*='${nombreSeccion}']`);
+        if(btn) btn.className += " active";
+    }
+	}
+
+	// ESTO ES LO QUE SOLUCIONA TU PROBLEMA:
+	window.onload = function() {
+		const urlParams = new URLSearchParams(window.location.search);
+		const tab = urlParams.get('tab');
+		
+		if (tab) {
+			abrirSeccion(null, tab);
+		} else {
+			abrirSeccion(null, 'novelas'); // Por defecto abre novelas
+		}
+	};
+    </script>
+</body>
+</html>
