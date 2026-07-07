@@ -21,12 +21,10 @@
                 <h3>¿Qué aprenderás?</h3>
                 <p class="texto-sinopsis">Este servicio Presencial está pensado para aquellos estudiantes (de cualquier Nivel) que quiere una clase más personalizada para reforzar su dominio del idioma a través de explicaciones gramaticales, explicaciones de vocabulario, prácticas conversacionales, prácticas de lístening, etc. Además, si tienes tareas de inglés o en tu colegio están estudiando un tema de inglés que se te complica mucho, te ayudamos sin problemas para que tu aprendizaje del idioma no se te complique ni estrese más de la cuenta.</p>
                 
-                <div class="botones-compra">
-					<button onclick="abrirModal()" class="btn-pago-peru">
-						Pagar (Yape / Plin)
-					</button>
-
-					<div id="paypal-button-container" class="btn-paypal-directo"></div>
+                <!-- Se movió el contenedor de PayPal para que no estorbe arriba y se maneje visualmente de forma inteligente -->
+				<div id="contenedor-paypal-oculto" style="display: none; margin-top: 20px;">
+					<h3 style="text-align: center; margin-bottom: 10px;">Procesar Pago Seguro con PayPal:</h3>
+					<div id="paypal-button-container" class="btn-paypal-directo" style="max-width: 350px; margin: 0 auto;"></div>
 				</div>
             </div>
         </section>
@@ -187,21 +185,29 @@
     function seleccionarNivel(idModalidad, metodo) {
         const modalidad = datosCurso.niveles[idModalidad];
         
-        // 1. Actualizar precios y WhatsApp
+        // 1. Actualizar precios y enlace del formulario
         document.getElementById("monto-soles").innerText = "S/ " + modalidad.pen;
         const btnRegistro = document.getElementById("btn-wa-dinamico");
-		btnRegistro.href = datosCurso.urlDescarga; // El link directo del config.js
-		btnRegistro.target = "_blank";           // Esto hace que abra en otra pestaña
+        btnRegistro.href = datosCurso.urlDescarga; 
+        btnRegistro.target = "_blank";           
 
-        // 2. Actualizar el botón de PayPal
+        // 2. Actualizar el botón de PayPal internamente con la tarifa elegida
         renderizarPaypal(modalidad.usd, modalidad.desc);
 
-        // 3. Lógica de flujo
+        // 3. Lógica de flujo inteligente
         if (metodo === 'peru') {
+            // Ocultamos el contenedor de PayPal si escoge Yape para mantener orden
+            document.getElementById("contenedor-paypal-oculto").style.display = "none";
             abrirModal();
         } else if (metodo === 'paypal') {
-            document.getElementById("paypal-button-container").scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Efecto visual
+            // Hacemos visible el contenedor de PayPal únicamente cuando da clic en la tabla
+            const contenedorPP = document.getElementById("contenedor-paypal-oculto");
+            contenedorPP.style.display = "block";
+            
+            // Bajamos con suavidad hacia la zona de pago seguro de PayPal
+            contenedorPP.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Efecto visual de enfoque para llamar la atención del cliente
             const ppBox = document.getElementById("paypal-button-container");
             ppBox.style.outline = "3px solid #ffc439";
             setTimeout(() => { ppBox.style.outline = "none"; }, 2000);

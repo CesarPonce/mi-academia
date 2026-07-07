@@ -20,13 +20,7 @@
                 <h3>¿Qué aprenderás?</h3>
                 <p class="texto-sinopsis">Este servicio online (mediante la plataforma Zoom o Meet) está pensado para aquellos estudiantes (de cualquier Nivel) que quiere una clase más personalizada para reforzar su dominio del idioma a través de explicaciones gramaticales, explicaciones de vocabulario, prácticas conversacionales, prácticas de lístening, etc. Además, si tienes tareas de inglés o en tu colegio están estudiando un tema de inglés que se te complica mucho, te ayudamos sin problemas para que tu aprendizaje del idioma no se te complique ni estrese más de la cuenta.</p>
                 
-                <div class="botones-compra">
-					<button onclick="abrirModal()" class="btn-pago-peru">
-						Pagar (Yape / Plin)
-					</button>
-
-					<div id="paypal-button-container" class="btn-paypal-directo"></div>
-				</div>
+                <!-- Los botones de compra estáticos de arriba se eliminaron para limpiar la interfaz -->
             </div>
         </section>
 
@@ -86,6 +80,13 @@
         </tbody>
     </table>
 </div>
+
+<!-- Contenedor inteligente de PayPal. Aparece abajo de la tabla solo si eligen PayPal -->
+<div id="contenedor-paypal-oculto" style="display: none; margin-top: 30px;">
+    <h3 style="text-align: center; margin-bottom: 15px;">Procesar Pago Seguro con PayPal:</h3>
+    <div id="paypal-button-container" class="btn-paypal-directo" style="max-width: 350px; margin: 0 auto;"></div>
+</div>
+
 </section>
 
         <div class="caja-garantia-nueva curso-beneficio">
@@ -125,7 +126,7 @@
             </div>
         </div>
 		<div class="tarjeta-testimonio">
-            <p>"Sus clases son muy buenas. En cada sesión nos indica cómo poder utilizar mejor el inglés, no solo en oraciones sino también en nuestro día a día. Por otro lado, también nos permite aprender el idioma de una manera divertida. Aprendí mucho con él."</p>
+            <p>"Sus clases son muy buenas. En cada sesión nos indica cómo poder utilizar mejor el inglés, no solo en oraciones sino también en nuestro día a día. Por otro lado, también nos permite aprender el idioma de una manera divertido. Aprendí mucho con él."</p>
             <div class="autor-testimonio">
                 <strong>- Diana</strong>
                 <span>Estudiante de nivel Básico</span>
@@ -176,7 +177,6 @@
 	</div>
 
     <script>
-    // IMPORTANTE: Asegúrate que el ID coincida con la llave en tu config.js
     const ID_CURSO = "online-tutoring"; 
     const datosCurso = CONFIG_LIBROS[ID_CURSO];
 
@@ -186,21 +186,27 @@
     function seleccionarNivel(idModalidad, metodo) {
         const modalidad = datosCurso.niveles[idModalidad];
         
-        // 1. Actualizar precios y WhatsApp
+        // 1. Actualizar precios y WhatsApp desde config.js
         document.getElementById("monto-soles").innerText = "S/ " + modalidad.pen;
         const btnRegistro = document.getElementById("btn-wa-dinamico");
-		btnRegistro.href = datosCurso.urlDescarga; // El link directo del config.js
-		btnRegistro.target = "_blank";           // Esto hace que abra en otra pestaña
+		btnRegistro.href = datosCurso.urlDescarga; 
+		btnRegistro.target = "_blank";           
 
-        // 2. Actualizar el botón de PayPal
+        // 2. Actualizar dinámicamente el botón de PayPal
         renderizarPaypal(modalidad.usd, modalidad.desc);
 
-        // 3. Lógica de flujo
+        // 3. Control de flujo inteligente de pantallas
         if (metodo === 'peru') {
+            document.getElementById("contenedor-paypal-oculto").style.display = "none";
             abrirModal();
         } else if (metodo === 'paypal') {
-            document.getElementById("paypal-button-container").scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // Efecto visual
+            const contenedorPP = document.getElementById("contenedor-paypal-oculto");
+            contenedorPP.style.display = "block";
+            
+            // Animación suave de desplazamiento hacia el checkout
+            contenedorPP.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Destello de enfoque visual temporal
             const ppBox = document.getElementById("paypal-button-container");
             ppBox.style.outline = "3px solid #ffc439";
             setTimeout(() => { ppBox.style.outline = "none"; }, 2000);
@@ -229,13 +235,6 @@
         }).render('#paypal-button-container');
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
-        // Inicializar con la opción individual por defecto
-        if(datosCurso && datosCurso.niveles) {
-            renderizarPaypal(datosCurso.niveles["individual"].usd, datosCurso.niveles["individual"].desc);
-        }
-    });
-
     function copiarNumero() {
         navigator.clipboard.writeText("952007215").then(() => {
             const tooltip = document.getElementById("mensaje-copiado");
@@ -245,22 +244,19 @@
     }
 	
 	document.addEventListener("DOMContentLoaded", function() {
-    // Esta función escribe los precios del config.js directamente en tu tabla visual
-    if (datosCurso && datosCurso.niveles) {
-        const niveles = datosCurso.niveles;
-        
-        // Actualiza celda Individual
-        const cellInd = document.getElementById("precio-individual");
-        if(cellInd) cellInd.innerText = `S/. ${niveles.individual.pen} ($${niveles.individual.usd})`;
+        // Esta función lee y escribe las tarifas directamente del config.js en tu tabla visual
+        if (datosCurso && datosCurso.niveles) {
+            const niveles = datosCurso.niveles;
+            
+            const cellInd = document.getElementById("precio-individual");
+            if(cellInd) cellInd.innerText = `S/. ${niveles.individual.pen} ($${niveles.individual.usd})`;
 
-        // Actualiza celda Dos Estudiantes
-        const cellDos = document.getElementById("precio-dos");
-        if(cellDos) cellDos.innerText = `S/. ${niveles.dos.pen} ($${niveles.dos.usd})`;
+            const cellDos = document.getElementById("precio-dos");
+            if(cellDos) cellDos.innerText = `S/. ${niveles.dos.pen} ($${niveles.dos.usd})`;
 
-        // Actualiza celda Tres Estudiantes
-        const cellTres = document.getElementById("precio-tres");
-        if(cellTres) cellTres.innerText = `S/. ${niveles.tres.pen} ($${niveles.tres.usd})`;
-    }
+            const cellTres = document.getElementById("precio-tres");
+            if(cellTres) cellTres.innerText = `S/. ${niveles.tres.pen} ($${niveles.tres.usd})`;
+        }
 	});
 	</script>
 </body>

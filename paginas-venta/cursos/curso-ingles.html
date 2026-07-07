@@ -20,13 +20,7 @@
                 <h3>¿Qué aprenderás?</h3>
                 <p>En este curso en vivo y en línea aprederás el idioma inglés partiendo de lo más básico, con metodologías efectivas y materiales adecuados.</p>
                 
-                <div class="botones-compra">
-					<button onclick="abrirModal()" class="btn-pago-peru">
-						Pagar (Yape / Plin)
-					</button>
-
-					<div id="paypal-button-container" class="btn-paypal-directo"></div>
-				</div>
+                <!-- Los botones fijos superiores se eliminaron para priorizar la lectura inicial -->
             </div>
         </section>
 
@@ -123,6 +117,12 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Contenedor dinámico de PayPal colocado de manera inteligente bajo la tabla -->
+    <div id="contenedor-paypal-oculto" style="display: none; margin-top: 30px;">
+        <h3 style="text-align: center; margin-bottom: 15px;">Procesar Pago Seguro con PayPal:</h3>
+        <div id="paypal-button-container" class="btn-paypal-directo" style="max-width: 350px; margin: 0 auto;"></div>
+    </div>
 </section>
 
         <div class="caja-garantia-nueva curso-beneficio">
@@ -218,7 +218,6 @@
 		function cerrarModal() { document.getElementById("miModal").style.display = "none"; }
 
 		// 2. LÓGICA DE PRECIOS DINÁMICOS
-		
 		const ID_CURSO = "curso-ingles";
 		const datosCurso = CONFIG_LIBROS[ID_CURSO];
 
@@ -230,25 +229,27 @@
 			const mensajeWA = `${datosCurso.whatsappMsj}%20${nivel.desc}%20por%20S/%20${nivel.pen}.`;
 			document.getElementById("btn-wa-dinamico").href = "https://wa.me/51952007215?text=" + mensajeWA;
 
-			// 2. Actualizar el botón de PayPal de arriba
+			// 2. Vincular internamente el portal de PayPal con la tarifa del nivel seleccionado
 			renderizarPaypal(nivel.usd, nivel.desc);
 
-			// 3. Flujo según el botón presionado
+			// 3. Flujo según el método elegido en la tabla
 			if (metodo === 'peru') {
-				document.getElementById("miModal").style.display = "flex";
+                // Ocultar caja de PayPal si decide cambiar a un método local de Perú
+                document.getElementById("contenedor-paypal-oculto").style.display = "none";
+				abrirModal();
 			} else if (metodo === 'paypal') {
-				// Scroll suave hacia el área de PayPal
-				document.getElementById("paypal-button-container").scrollIntoView({ behavior: 'smooth', block: 'center' });
+                const contenedorPP = document.getElementById("contenedor-paypal-oculto");
+                contenedorPP.style.display = "block";
+
+				// Scroll suave hacia el portal interactivo de PayPal abajo
+				contenedorPP.scrollIntoView({ behavior: 'smooth', block: 'center' });
 				
-				// Efecto visual opcional: resaltar brevemente el botón de PayPal
+				// Resaltado estético y temporal del marco de botones
 				const ppBox = document.getElementById("paypal-button-container");
 				ppBox.style.outline = "3px solid #ffc439";
 				setTimeout(() => { ppBox.style.outline = "none"; }, 2000);
 			}
 		}
-
-		function abrirModal() { document.getElementById("miModal").style.display = "flex"; }
-		function cerrarModal() { document.getElementById("miModal").style.display = "none"; }
 
 		function renderizarPaypal(montoUSD, descripcion) {
 			const container = document.getElementById("paypal-button-container");
@@ -272,13 +273,6 @@
 			}).render('#paypal-button-container');
 		}
 
-		// Inicialización por defecto
-		document.addEventListener("DOMContentLoaded", function() {
-			if(datosCurso && datosCurso.niveles) {
-				renderizarPaypal(datosCurso.niveles["A1"].usd, datosCurso.niveles["A1"].desc);
-			}
-		});
-
 		function copiarNumero() {
 			const numero = "952007215";
 			navigator.clipboard.writeText(numero).then(() => {
@@ -289,27 +283,27 @@
 		}
 		
 		document.addEventListener("DOMContentLoaded", function() {
-    // Vincula los precios del config.js con la tabla visual del curso
-    if (datosCurso && datosCurso.niveles) {
-        const niveles = datosCurso.niveles;
-        
-        // Función auxiliar para actualizar cada celda si existe
-        const actualizarCelda = (id, nivelKey) => {
-            const cell = document.getElementById(id);
-            if(cell && niveles[nivelKey]) {
-                cell.innerText = `S/. ${niveles[nivelKey].pen} ($${niveles[nivelKey].usd})`;
-            }
-        };
+            // Vincula los precios del config.js con la tabla visual del curso
+            if (datosCurso && datosCurso.niveles) {
+                const niveles = datosCurso.niveles;
+                
+                // Función auxiliar para actualizar cada celda si existe
+                const actualizarCelda = (id, nivelKey) => {
+                    const cell = document.getElementById(id);
+                    if(cell && niveles[nivelKey]) {
+                        cell.innerText = `S/. ${niveles[nivelKey].pen} ($${niveles[nivelKey].usd})`;
+                    }
+                };
 
-        // Actualizamos todos los niveles
-        actualizarCelda("precio-a1", "A1");
-        actualizarCelda("precio-a2", "A2");
-        actualizarCelda("precio-b1", "B1");
-        actualizarCelda("precio-b2", "B2");
-        actualizarCelda("precio-c1", "C1");
-        actualizarCelda("precio-c2", "C2");
-    }
-	});
-</script>
+                // Actualizamos todos los niveles dinámicamente
+                actualizarCelda("precio-a1", "A1");
+                actualizarCelda("precio-a2", "A2");
+                actualizarCelda("precio-b1", "B1");
+                actualizarCelda("precio-b2", "B2");
+                actualizarCelda("precio-c1", "C1");
+                actualizarCelda("precio-c2", "C2");
+            }
+	    });
+    </script>
 </body>
 </html>
